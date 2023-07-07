@@ -20,7 +20,7 @@ namespace Tank_Forums.Models
 
         public ForumPost()
         {
-              
+            postDate = DateTime.UtcNow;
         }
 
     }

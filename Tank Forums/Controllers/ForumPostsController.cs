@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,7 @@ namespace Tank_Forums.Controllers
         }
 
         // GET: ForumPosts/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -68,6 +70,7 @@ namespace Tank_Forums.Controllers
         }
 
         // GET: ForumPosts/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.ForumPost == null)
@@ -86,6 +89,7 @@ namespace Tank_Forums.Controllers
         // POST: ForumPosts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,className,authorName,classIcon,postDate,postTitle,postBody,postLikes,postDislikes")] ForumPost forumPost)
@@ -119,6 +123,7 @@ namespace Tank_Forums.Controllers
         }
 
         // GET: ForumPosts/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.ForumPost == null)
@@ -137,6 +142,7 @@ namespace Tank_Forums.Controllers
         }
 
         // POST: ForumPosts/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
