@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Tank_Forums.Models;
 
@@ -15,7 +16,8 @@ namespace Tank_Forums.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            //return View();
+            return RedirectToAction("Index", "ForumPosts");
         }
 
         public IActionResult Privacy()

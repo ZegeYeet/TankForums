@@ -8,7 +8,7 @@ namespace Tank_Forums.Models
         public int Id { get; set; }
         public string className { get; set; }
         public string authorName { get; set; }
-        public byte[] classIcon { get; set; }
+        public byte[] ? classIcon { get; set; }
 
 
         public DateTime postDate { get; set; }
@@ -21,6 +21,8 @@ namespace Tank_Forums.Models
         public ForumPost()
         {
             postDate = DateTime.UtcNow;
+            postLikes = 0;
+            postDislikes = 0;
         }
 
     }
