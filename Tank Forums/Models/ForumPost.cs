@@ -1,18 +1,23 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Tank_Forums.Models
 {
     public class ForumPost
     {
 
-        public int Id { get; set; }
-        public string className { get; set; }
-        public string authorName { get; set; }
-        public byte[] ? classIcon { get; set; }
+        [Key]
+        public int PostId { get; set; }
+        public string? className { get; set; }
+        public string? authorName { get; set; }
 
 
+        [Required]
         public DateTime postDate { get; set; }
+        [Required]
         public string postTitle { get; set; }
+        [Required]
         public string postBody { get; set; }
 
         public int postLikes { get; set; }
@@ -20,10 +25,13 @@ namespace Tank_Forums.Models
 
         public ForumPost()
         {
-            postDate = DateTime.UtcNow;
-            postLikes = 0;
-            postDislikes = 0;
+            this.postDate = DateTime.UtcNow;
+            this.postLikes = 0;
+            this.postDislikes = 0;
         }
+
+
+
 
     }
 }

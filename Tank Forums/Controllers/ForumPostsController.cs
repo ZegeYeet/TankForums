@@ -37,7 +37,7 @@ namespace Tank_Forums.Controllers
             }
 
             var forumPost = await _context.ForumPost
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.PostId == id);
             if (forumPost == null)
             {
                 return NotFound();
@@ -57,9 +57,12 @@ namespace Tank_Forums.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,className,authorName,classIcon,postDate,postTitle,postBody,postLikes,postDislikes")] ForumPost forumPost)
+        public async Task<IActionResult> Create([Bind("className,postTitle,postBody")] ForumPost forumPost)
         {
+            forumPost.authorName = User.Identity.Name;
+
             if (ModelState.IsValid)
             {
                 _context.Add(forumPost);
@@ -94,7 +97,7 @@ namespace Tank_Forums.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,className,authorName,classIcon,postDate,postTitle,postBody,postLikes,postDislikes")] ForumPost forumPost)
         {
-            if (id != forumPost.Id)
+            if (id != forumPost.PostId)
             {
                 return NotFound();
             }
@@ -108,7 +111,7 @@ namespace Tank_Forums.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ForumPostExists(forumPost.Id))
+                    if (!ForumPostExists(forumPost.PostId))
                     {
                         return NotFound();
                     }
@@ -132,7 +135,7 @@ namespace Tank_Forums.Controllers
             }
 
             var forumPost = await _context.ForumPost
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.PostId == id);
             if (forumPost == null)
             {
                 return NotFound();
@@ -163,7 +166,7 @@ namespace Tank_Forums.Controllers
 
         private bool ForumPostExists(int id)
         {
-          return (_context.ForumPost?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.ForumPost?.Any(e => e.PostId == id)).GetValueOrDefault();
         }
     }
 }
