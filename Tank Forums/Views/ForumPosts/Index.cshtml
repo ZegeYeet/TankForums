@@ -4,54 +4,65 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.className)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.authorName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.postDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.postTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.postBody)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.classIcon)*@
-                    @Html.DisplayFor(modelItem => item.authorName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.postTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.postDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.postBody)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.postLikes)
-                    @Html.DisplayFor(modelItem => item.postDislikes)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+@if (Model.Any())
+{
+    <h1>Welcome to Tanks Place!</h1>
+    <p>
+        <a asp-action="Create">Create Post</a>
+    </p>
+
+
+    @foreach (var item in Model)
+    {
+        <div class="row justify-content-center">
+        <table class="table table-borderless table-responsive">
+            <tbody>
+                <tr>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.classIcon)*@
+                        <span>
+                            Posted by
+                            @Html.DisplayFor(modelItem => item.authorName)
+                            at
+                            @Html.DisplayFor(modelItem => item.postDate)
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.postTitle)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.postBody)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.postLikes)
+                        @Html.DisplayFor(modelItem => item.postDislikes)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    }
+}
+else
+{
+    <div class="noPosts">
+        <h3>
+            There are no posts yet. <br/>
+            Why not
+            <a asp-action="Create">
+                <span>create</span>
+            </a>
+            one?
+        </h3>
+    </div>
+}
+
+

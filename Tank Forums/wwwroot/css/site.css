@@ -17,3 +17,13 @@ body {
   margin-bottom: 60px;
   background-color: #eee;
 }
+
+table {
+    border-collapse: collapse;
+    border: 1px solid;
+}
+
+.table {
+    width: 40%;
+}
+
