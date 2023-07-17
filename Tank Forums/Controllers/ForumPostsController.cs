@@ -46,6 +46,13 @@ namespace Tank_Forums.Controllers
             return View(forumPost);
         }
 
+        public async Task<IActionResult> NavClassSelection(string navClass)
+        {
+            return _context.ForumPost != null ?
+                        View("Index", await _context.ForumPost.Where(j => j.className.Contains(navClass)).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.WowClass'  is null.");
+        }
+
         // GET: ForumPosts/Create
         [Authorize]
         public IActionResult Create()
