@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -23,9 +24,12 @@ namespace Tank_Forums.Controllers
         // GET: ForumPosts
         public async Task<IActionResult> Index()
         {
-              return _context.ForumPost != null ? 
-                          View(await _context.ForumPost.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.ForumPost'  is null.");
+            var forumPosts = from post in _context.ForumPost select post;
+            forumPosts = forumPosts.OrderByDescending(i => i.postDate);
+
+            return _context.ForumPost != null ?
+                        View("Index", await forumPosts.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.WowClass'  is null.");
         }
 
         // GET: ForumPosts/Details/5
@@ -48,8 +52,12 @@ namespace Tank_Forums.Controllers
 
         public async Task<IActionResult> NavClassSelection(string navClass)
         {
+            var forumPosts = from post in _context.ForumPost select post;
+            forumPosts = forumPosts.Where(j => j.className.Contains(navClass));
+            forumPosts = forumPosts.OrderByDescending(i => i.postDate);
+
             return _context.ForumPost != null ?
-                        View("Index", await _context.ForumPost.Where(j => j.className.Contains(navClass)).ToListAsync()) :
+                        View("Index", await forumPosts.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.WowClass'  is null.");
         }
 
