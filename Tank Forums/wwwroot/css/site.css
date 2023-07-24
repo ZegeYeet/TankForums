@@ -29,3 +29,12 @@ table {
     border-color: #ccc;
 }
 
+.postVoteButton {
+    height: 32px;
+    width: 32px;
+    border: none;
+    background: center center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+}
+

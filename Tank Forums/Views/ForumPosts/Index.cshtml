@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.postTitle)
+                            <span style="font-size:15pt">@Html.DisplayFor(modelItem => item.postTitle)</span>
                     </td>
                 </tr>
                 <tr>
@@ -42,8 +42,12 @@
                 </tr>
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.postLikes)
-                        @Html.DisplayFor(modelItem => item.postDislikes)
+                            <button class="postVoteButton" name="upvoteButton" type="submit" value="" style="background-image:url(@Url.Content("~/Images/upArrow.png")">
+                            </button>
+                            @Html.DisplayFor(modelItem => item.postLikes)
+                            <button class="postVoteButton" name="downvoteButton" type="submit" value="" style="background-image:url(@Url.Content("~/Images/downArrow.png")">
+                            </button>
+                            @Html.DisplayFor(modelItem => item.postDislikes)
                     </td>
                 </tr>
             </tbody>

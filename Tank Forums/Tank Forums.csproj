@@ -20,4 +20,13 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\downArrow.png" />
+    <None Include="wwwroot\Images\upArrow.png" />
+  </ItemGroup>
+
 </Project>
