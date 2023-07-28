@@ -9,8 +9,24 @@
       "PackagePath": "staticwebassets\\Images\\downArrow.png"
     },
     {
+      "Id": "C:\\Users\\Travis Johnson\\Desktop\\code related\\asp.net\\TankForum\\Tank Forums\\wwwroot\\Images\\downvoteIconEmpty.png",
+      "PackagePath": "staticwebassets\\Images\\downvoteIconEmpty.png"
+    },
+    {
+      "Id": "C:\\Users\\Travis Johnson\\Desktop\\code related\\asp.net\\TankForum\\Tank Forums\\wwwroot\\Images\\downvoteIconFull.png",
+      "PackagePath": "staticwebassets\\Images\\downvoteIconFull.png"
+    },
+    {
       "Id": "C:\\Users\\Travis Johnson\\Desktop\\code related\\asp.net\\TankForum\\Tank Forums\\wwwroot\\Images\\upArrow.png",
       "PackagePath": "staticwebassets\\Images\\upArrow.png"
+    },
+    {
+      "Id": "C:\\Users\\Travis Johnson\\Desktop\\code related\\asp.net\\TankForum\\Tank Forums\\wwwroot\\Images\\upvoteIconEmpty.png",
+      "PackagePath": "staticwebassets\\Images\\upvoteIconEmpty.png"
+    },
+    {
+      "Id": "C:\\Users\\Travis Johnson\\Desktop\\code related\\asp.net\\TankForum\\Tank Forums\\wwwroot\\Images\\upvoteIconFull.png",
+      "PackagePath": "staticwebassets\\Images\\upvoteIconFull.png"
     },
     {
       "Id": "C:\\Users\\Travis Johnson\\Desktop\\code related\\asp.net\\TankForum\\Tank Forums\\wwwroot\\css\\site.css",
