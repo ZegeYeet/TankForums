@@ -5,6 +5,12 @@
 
 
 
+function ClickVoteButton(postId, voteButton, voteCountText)
+{
+    ToggleVoteButtonIcon(voteButton);
+    ForumPostUpdateVotes(postId, voteCountText);
+}
+
 function ToggleVoteButtonIcon(element)
 {
 
@@ -24,4 +30,22 @@ function ToggleVoteButtonIcon(element)
         element.style.backgroundImage = "url('Images/downvoteIconEmpty.png')";
         element.value = "downvoteEmpty";
     }
+}
+
+function ForumPostUpdateVotes(postId, voteCountText)
+{
+
+
+    $.ajax({
+        url: '/ForumPosts/GetVoteCount/',
+        type: 'GET',
+        data: {'postID': postId},
+        dataType: 'json',
+        success: function (data) {
+            voteCountText.innerHTML = data.voteCount;
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
 }

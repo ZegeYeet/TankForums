@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Formats.Asn1;
 using System.Linq;
 using System.Threading.Tasks;
@@ -182,6 +183,26 @@ namespace Tank_Forums.Controllers
         private bool ForumPostExists(int id)
         {
           return (_context.ForumPost?.Any(e => e.PostId == id)).GetValueOrDefault();
+        }
+
+        // GET: likes - dislikes
+        public async Task<IActionResult> GetVoteCount(int postId)
+        {
+            Debug.WriteLine(postId);
+            if (_context.ForumPost == null)
+            {
+                return Problem("Entity set 'AppDbContext'  is null.");
+            }
+
+            var forumPost = await _context.ForumPost
+                .FirstOrDefaultAsync(m => m.PostId == postId);
+
+            if (forumPost == null)
+            {
+                return Problem("no post with that id");
+            }
+
+            return Json(new {voteCount= forumPost.postLikes- forumPost.postDislikes });
         }
 
     }

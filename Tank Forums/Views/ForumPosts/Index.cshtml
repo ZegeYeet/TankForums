@@ -42,14 +42,18 @@
                 </tr>
                 <tr>
                     <td>
-                            <button class="postVoteButton" name="upvoteButton" type="submit" value="upvoteEmpty" onclick="ToggleVoteButtonIcon(this)" 
-                                style="background-image:url(@Url.Content("~/Images/upvoteIconEmpty.png"))">
+
+                            <button class="postVoteButton" name="upvoteButton" type="submit" value="upvoteEmpty" onclick="ClickVoteButton(@item.PostId, this, voteCountText@(item.PostId))"
+                                    style="background-image:url(@Url.Content("~/Images/upvoteIconEmpty.png"))">
                             </button>
                             @{
                                 var postLikeSum = item.postLikes - item.postDislikes;
-                                @Html.DisplayFor(modelItem => postLikeSum);
+                                <span id='voteCountText@(item.PostId)'>
+                                    @Html.DisplayFor(modelItem => postLikeSum)
+                                </span>
+                                
                             }
-                            <button class="postVoteButton" name="downvoteButton" type="submit" value="downvoteEmpty" onclick="ToggleVoteButtonIcon(this)"
+                            <button class="postVoteButton" name="downvoteButton" type="submit" value="downvoteEmpty" onclick="ClickVoteButton(@item.PostId, this, voteCountText@(item.PostId))"
                                 style="background-image:url(@Url.Content("~/Images/downvoteIconEmpty.png"))">
                             </button>
                     </td>
