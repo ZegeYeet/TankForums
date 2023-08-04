@@ -5,10 +5,12 @@
 
 
 
-function ClickVoteButton(postId, voteButton, voteCountText)
+async function ClickVoteButton(postId, voteAmount, voteButton, voteCountText)
 {
-    ToggleVoteButtonIcon(voteButton);
-    ForumPostUpdateVotes(postId, voteCountText);
+    if (ForumPostChangeVote(postId, voteAmount, voteCountText)) {
+        ToggleVoteButtonIcon(voteButton);
+    }
+    
 }
 
 function ToggleVoteButtonIcon(element)
@@ -32,7 +34,7 @@ function ToggleVoteButtonIcon(element)
     }
 }
 
-function ForumPostUpdateVotes(postId, voteCountText)
+function ForumPostRefreshVotes(postId, voteCountText)
 {
 
 
@@ -48,4 +50,24 @@ function ForumPostUpdateVotes(postId, voteCountText)
             console.log(error);
         }
     });
+}
+
+async function ForumPostChangeVote(postId, newVoteAmount, voteCountText) {
+
+
+    $.ajax({
+        url: '/ForumPosts/ChangeVoteCount/',
+        type: 'POST',
+        data: { 'postID': postId, 'voteAmount': newVoteAmount },
+        dataType: 'json',
+        success: function (data) {
+            ForumPostRefreshVotes(postId, voteCountText);
+            return true;
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    return false;
 }

@@ -188,10 +188,9 @@ namespace Tank_Forums.Controllers
         // GET: likes - dislikes
         public async Task<IActionResult> GetVoteCount(int postId)
         {
-            Debug.WriteLine(postId);
             if (_context.ForumPost == null)
             {
-                return Problem("Entity set 'AppDbContext'  is null.");
+                return Problem("Entity set is null.");
             }
 
             var forumPost = await _context.ForumPost
@@ -199,11 +198,38 @@ namespace Tank_Forums.Controllers
 
             if (forumPost == null)
             {
-                return Problem("no post with that id");
+                return Problem("no post found");
             }
 
             return Json(new {voteCount= forumPost.postLikes- forumPost.postDislikes });
         }
 
+        // POST: change vote amount
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ChangeVoteCount(int postId, int voteAmount)
+        {
+            if (_context.ForumPost == null)
+            {
+                return Problem("Entity set is null.");
+            }
+
+            var forumPostToChange = await _context.ForumPost
+                .FirstOrDefaultAsync(m => m.PostId == postId);
+
+            if (forumPostToChange == null)
+            {
+                return Problem("no post found");
+            }
+
+            forumPostToChange.postLikes = forumPostToChange.postLikes + voteAmount;
+            _context.Entry(forumPostToChange).State = EntityState.Modified;
+            _context.SaveChanges();
+
+
+            
+
+            return Json(new { voteLikes = forumPostToChange.postLikes });
+        }
     }
 }
