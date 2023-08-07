@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Formats.Asn1;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -207,7 +208,7 @@ namespace Tank_Forums.Controllers
         // POST: change vote amount
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> ChangeVoteCount(int postId, int voteAmount)
+        public async Task<IActionResult> ChangeVoteCount(int postId, string voteValue)
         {
             if (_context.ForumPost == null)
             {
@@ -222,7 +223,24 @@ namespace Tank_Forums.Controllers
                 return Problem("no post found");
             }
 
-            forumPostToChange.postLikes = forumPostToChange.postLikes + voteAmount;
+            if (voteValue == "upvoteEmpty")
+            {
+                forumPostToChange.postLikes = forumPostToChange.postLikes + 1;
+            }
+            else if (voteValue == "upvoteFull")
+            {
+                forumPostToChange.postLikes = forumPostToChange.postLikes - 1;
+            }
+            else if (voteValue == "downvoteEmpty")
+            {
+                forumPostToChange.postDislikes = forumPostToChange.postDislikes + 1;
+            }
+            else if (voteValue == "downvoteFull")
+            {
+                forumPostToChange.postDislikes = forumPostToChange.postDislikes -1;
+            }
+
+
             _context.Entry(forumPostToChange).State = EntityState.Modified;
             _context.SaveChanges();
 

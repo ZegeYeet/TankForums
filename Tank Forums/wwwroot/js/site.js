@@ -5,9 +5,9 @@
 
 
 
-async function ClickVoteButton(postId, voteAmount, voteButton, voteCountText)
+async function ClickVoteButton(postId, voteButton, voteCountText)
 {
-    if (ForumPostChangeVote(postId, voteAmount, voteCountText)) {
+    if (ForumPostChangeVote(postId, voteButton.value, voteCountText)) {
         ToggleVoteButtonIcon(voteButton);
     }
     
@@ -52,13 +52,13 @@ function ForumPostRefreshVotes(postId, voteCountText)
     });
 }
 
-async function ForumPostChangeVote(postId, newVoteAmount, voteCountText) {
+async function ForumPostChangeVote(postId, newVoteValue, voteCountText) {
 
 
     $.ajax({
         url: '/ForumPosts/ChangeVoteCount/',
         type: 'POST',
-        data: { 'postID': postId, 'voteAmount': newVoteAmount },
+        data: { 'postID': postId, 'voteValue': newVoteValue },
         dataType: 'json',
         success: function (data) {
             ForumPostRefreshVotes(postId, voteCountText);

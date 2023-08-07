@@ -43,7 +43,7 @@
                 <tr>
                     <td>
 
-                            <button class="postVoteButton" name="upvoteButton" type="submit" value="upvoteEmpty" onclick="ClickVoteButton(@item.PostId, 1, this, voteCountText@(item.PostId))"
+                            <button class="postVoteButton" name="upvoteButton" type="submit" value="upvoteEmpty" onclick="ClickVoteButton(@item.PostId, this, voteCountText@(item.PostId))"
                                     style="background-image:url(@Url.Content("~/Images/upvoteIconEmpty.png"))">
                             </button>
                             @{
@@ -53,7 +53,7 @@
                                 </span>
                                 
                             }
-                            <button class="postVoteButton" name="downvoteButton" type="submit" value="downvoteEmpty" onclick="ClickVoteButton(@item.PostId, -1, this, voteCountText@(item.PostId))"
+                            <button class="postVoteButton" name="downvoteButton" type="submit" value="downvoteEmpty" onclick="ClickVoteButton(@item.PostId, this, voteCountText@(item.PostId))"
                                 style="background-image:url(@Url.Content("~/Images/downvoteIconEmpty.png"))">
                             </button>
                     </td>
