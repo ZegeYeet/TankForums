@@ -17,5 +17,7 @@ namespace Tank_Forums.Models
         [ForeignKey("userId")]
         public IdentityUser user { get; set; }
 
+        public string voteStyle; //like or dislike
+
     }
 }
