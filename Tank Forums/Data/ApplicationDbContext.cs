@@ -11,5 +11,6 @@ namespace Tank_Forums.Data
         {
         }
         public DbSet<Tank_Forums.Models.ForumPost>? ForumPost { get; set; }
+        public DbSet<Tank_Forums.Models.PostVotes>? PostVotes { get; set; }
     }
 }

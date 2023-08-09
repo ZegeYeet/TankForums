@@ -233,11 +233,9 @@ namespace Tank_Forums.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"), 1L, 1);
 
                     b.Property<string>("authorName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("className")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("postBody")
@@ -260,6 +258,30 @@ namespace Tank_Forums.Data.Migrations
                     b.HasKey("PostId");
 
                     b.ToTable("ForumPost");
+                });
+
+            modelBuilder.Entity("Tank_Forums.Models.PostVotes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("PostVotes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -311,6 +333,30 @@ namespace Tank_Forums.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Tank_Forums.Models.PostVotes", b =>
+                {
+                    b.HasOne("Tank_Forums.Models.ForumPost", "forumPost")
+                        .WithMany("postVotes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "user")
+                        .WithMany()
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("forumPost");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("Tank_Forums.Models.ForumPost", b =>
+                {
+                    b.Navigation("postVotes");
                 });
 #pragma warning restore 612, 618
         }

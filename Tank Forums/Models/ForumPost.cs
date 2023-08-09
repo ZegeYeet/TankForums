@@ -1,6 +1,7 @@
 ﻿
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tank_Forums.Models
 {
@@ -22,6 +23,8 @@ namespace Tank_Forums.Models
 
         public int postLikes { get; set; }
         public int postDislikes { get; set; }
+
+        public ICollection<PostVotes>? postVotes { get; set; }
 
         public ForumPost()
         {
