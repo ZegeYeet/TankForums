@@ -24,13 +24,14 @@ namespace Tank_Forums.Models
         public int postLikes { get; set; }
         public int postDislikes { get; set; }
 
-        public ICollection<PostVotes>? postVotes { get; set; }
+        public virtual ICollection<PostVotes>? postVotes { get; set; }
 
         public ForumPost()
         {
             this.postDate = DateTime.UtcNow;
             this.postLikes = 0;
             this.postDislikes = 0;
+            postVotes = new List<PostVotes>();
         }
 
 

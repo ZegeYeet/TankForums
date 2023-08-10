@@ -13,11 +13,9 @@ namespace Tank_Forums.Models
         [ForeignKey("PostId")]
         public ForumPost forumPost { get; set; }
 
-        public string userId { get; set; }
-        [ForeignKey("userId")]
-        public IdentityUser user { get; set; }
+        public string userName { get; set; }
 
-        public string voteStyle; //like or dislike
+        public string voteStyle { get; set; } //like or dislike
 
     }
 }

@@ -271,15 +271,17 @@ namespace Tank_Forums.Data.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<string>("userId")
+                    b.Property<string>("userName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("voteStyle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PostId");
-
-                    b.HasIndex("userId");
 
                     b.ToTable("PostVotes");
                 });
@@ -343,15 +345,7 @@ namespace Tank_Forums.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "user")
-                        .WithMany()
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("forumPost");
-
-                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Tank_Forums.Models.ForumPost", b =>

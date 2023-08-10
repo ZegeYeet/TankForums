@@ -5,6 +5,7 @@ using System.Formats.Asn1;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -215,13 +216,41 @@ namespace Tank_Forums.Controllers
                 return Problem("Entity set is null.");
             }
 
+            //get current post
             var forumPostToChange = await _context.ForumPost
+                .Include(m => m.postVotes)
                 .FirstOrDefaultAsync(m => m.PostId == postId);
+
 
             if (forumPostToChange == null)
             {
                 return Problem("no post found");
             }
+
+
+            //get current vote status for the post&user
+            if (forumPostToChange.postVotes.Any(p => p.userName == User.Identity.Name))
+            {
+                Debug.WriteLine("found a vote for the post by the user");
+                return Json(new { voteLikes = forumPostToChange.postLikes });
+            }
+            else
+            {
+                Debug.WriteLine("did not find a vote for the post by the user");
+                PostVotes pv = new PostVotes();
+                pv.userName = User.Identity.Name;
+                pv.voteStyle = voteValue;
+                forumPostToChange.postVotes.Add(pv);
+
+            }
+            //var currentPostVote = await _context.PostVotes
+            //    .FirstOrDefaultAsync(m => m.PostId == postId && m.userName == User.Identity.Name);
+            //Console.WriteLine(currentPostVote.userName);
+
+            //create/update vote in table
+
+            //update post
+
 
             if (voteValue == "upvoteEmpty")
             {
@@ -243,6 +272,8 @@ namespace Tank_Forums.Controllers
 
             _context.Entry(forumPostToChange).State = EntityState.Modified;
             _context.SaveChanges();
+
+
 
 
             
