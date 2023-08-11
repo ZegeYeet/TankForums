@@ -229,44 +229,58 @@ namespace Tank_Forums.Controllers
 
 
             //get current vote status for the post&user
+            PostVotes pv;
             if (forumPostToChange.postVotes.Any(p => p.userName == User.Identity.Name))
             {
                 Debug.WriteLine("found a vote for the post by the user");
-                return Json(new { voteLikes = forumPostToChange.postLikes });
+                pv = forumPostToChange.postVotes.FirstOrDefault(p => p.userName == User.Identity.Name);
             }
             else
             {
                 Debug.WriteLine("did not find a vote for the post by the user");
-                PostVotes pv = new PostVotes();
+                pv = new PostVotes();
                 pv.userName = User.Identity.Name;
                 pv.voteStyle = voteValue;
                 forumPostToChange.postVotes.Add(pv);
 
             }
-            //var currentPostVote = await _context.PostVotes
-            //    .FirstOrDefaultAsync(m => m.PostId == postId && m.userName == User.Identity.Name);
-            //Console.WriteLine(currentPostVote.userName);
+            
+            //update post and votes
+            //remove current vote value
+            if(pv.voteStyle == "upvoteFull")
+            {
+                forumPostToChange.postLikes = forumPostToChange.postLikes -1;
+            }
+            else if (pv.voteStyle == "downvoteFull")
+            {
+                forumPostToChange.postDislikes = forumPostToChange.postDislikes - 1;
+            }
+            else //post vote style is null or neutral
+            {
+                //do nothing
+            }
 
-            //create/update vote in table
-
-            //update post
+            pv.voteStyle = "noVote";
 
 
+            //add new value
             if (voteValue == "upvoteEmpty")
             {
                 forumPostToChange.postLikes = forumPostToChange.postLikes + 1;
+                pv.voteStyle = "upvoteFull";
             }
             else if (voteValue == "upvoteFull")
             {
-                forumPostToChange.postLikes = forumPostToChange.postLikes - 1;
+                //already removed vote value and set vote style etc
             }
             else if (voteValue == "downvoteEmpty")
             {
                 forumPostToChange.postDislikes = forumPostToChange.postDislikes + 1;
+                pv.voteStyle = "downvoteFull";
             }
             else if (voteValue == "downvoteFull")
             {
-                forumPostToChange.postDislikes = forumPostToChange.postDislikes -1;
+                //already removed vote value and set vote style etc
             }
 
 
