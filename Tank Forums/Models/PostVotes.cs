@@ -7,12 +7,11 @@ namespace Tank_Forums.Models
 {
     public class PostVotes
     {
-        [Key]
-        public int Id { get; set; }
         public int PostId { get; set; }
         [ForeignKey("PostId")]
         public ForumPost forumPost { get; set; }
 
+        [Key]
         public string userName { get; set; }
 
         public string voteStyle { get; set; } //like or dislike

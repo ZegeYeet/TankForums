@@ -43,8 +43,21 @@
                 <tr>
                     <td>
 
+                            @{
+                                
+
+                                var voteImgUrl = "~/Images/upvoteIconEmpty.png";
+                                if (item.postVotes.Any(p => p.userName == User.Identity.Name))
+                                {
+                                    if (item.postVotes.FirstOrDefault(p => p.userName == User.Identity.Name).voteStyle == "upvoteFull")
+                                    {
+                                        voteImgUrl = "~/Images/upvoteIconFull.png";
+                                    }
+                                }
+                                
+                            }
                             <button class="postVoteButton" name="upvoteButton" type="submit" value="upvoteEmpty" onclick="ClickVoteButton(@item.PostId, this, voteCountText@(item.PostId))"
-                                    style="background-image:url(@Url.Content("~/Images/upvoteIconEmpty.png"))">
+                                    style="background-image:url(@Url.Content(voteImgUrl))">
                             </button>
                             @{
                                 var postLikeSum = item.postLikes - item.postDislikes;
@@ -54,7 +67,8 @@
                                 
                             }
                             <button class="postVoteButton" name="downvoteButton" type="submit" value="downvoteEmpty" onclick="ClickVoteButton(@item.PostId, this, voteCountText@(item.PostId))"
-                                style="background-image:url(@Url.Content("~/Images/downvoteIconEmpty.png"))">
+                                    style="background-image:url(@Url.Content("~/Images/downvoteIconEmpty.png"))"
+                                    onload="SetVoteButtonOnLoad(@item.PostId, this, 'downvote')">
                             </button>
                     </td>
                 </tr>

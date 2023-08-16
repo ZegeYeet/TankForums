@@ -71,3 +71,34 @@ async function ForumPostChangeVote(postId, newVoteValue, voteCountText) {
 
     return false;
 }
+
+function SetVoteButtonOnLoad(postId, voteButton, voteCategory) {
+
+
+    $.ajax({
+        url: '/ForumPosts/GetVoteStyle/',
+        type: 'GET',
+        data: { 'postID': postId, 'voteCategory': voteCategory },
+        dataType: 'json',
+        success: function (data) {
+            //Return GetVoteIconOnLoad(voteButton, voteCategory, data.voteStatus);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function GetVoteIconOnLoad(element, voteCategory, voteStatus) {
+
+    console.log("made it to set vote icon on load");
+
+    if (voteStatus == "upvoteFull" && voteCategory == "upvote") {
+        return "~/Images/upvoteIconFull.png";
+    }
+    else if (voteStatus == "downvoteFull" && voteCategory == "downvote") {
+        return "~/Images/downvoteIconFull.png";
+    }
+
+    return "";
+}
