@@ -28,9 +28,8 @@ namespace Tank_Forums.Controllers
         public async Task<IActionResult> Index()
         {
             var forumPosts = from post in _context.ForumPost
-                .Include(m => m.postVotes)
+                .Include(m => m.postVotes).OrderByDescending(i => i.postDate)
                              select post;
-            forumPosts = forumPosts.OrderByDescending(i => i.postDate);
 
             return _context.ForumPost != null ?
                         View("Index", await forumPosts.ToListAsync()) :
