@@ -296,41 +296,6 @@ namespace Tank_Forums.Controllers
             return Json(new { voteLikes = forumPostToChange.postLikes });
         }
 
-        // GET: get vote style
-        [Authorize]
-        public async Task<IActionResult> GetVoteStyle(int postId, string voteValue)
-        {
-            if (_context.ForumPost == null)
-            {
-                return Problem("Entity set is null.");
-            }
 
-            //get current post
-            var forumPostToChange = await _context.ForumPost
-                .Include(m => m.postVotes)
-                .FirstOrDefaultAsync(m => m.PostId == postId);
-
-
-            if (forumPostToChange == null)
-            {
-                return Problem("no post found");
-            }
-
-
-            //get current vote status for the post&user
-            PostVotes pv;
-            if (forumPostToChange.postVotes.Any(p => p.userName == User.Identity.Name))
-            {
-                pv = forumPostToChange.postVotes.FirstOrDefault(p => p.userName == User.Identity.Name);
-
-                return Json(new { voteStatus = pv.voteStyle });
-            }
-            else
-            {
-                return Json(new { voteStatus = "noVote" });
-            }
-
-
-        }
     }
 }
