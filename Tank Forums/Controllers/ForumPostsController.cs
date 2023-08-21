@@ -293,7 +293,7 @@ namespace Tank_Forums.Controllers
 
             
 
-            return Json(new { voteLikes = forumPostToChange.postLikes });
+            return Json(new { voteLikes = forumPostToChange.postLikes, voteStyle = pv.voteStyle });
         }
 
 

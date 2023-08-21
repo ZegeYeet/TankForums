@@ -62,6 +62,7 @@ async function ForumPostChangeVote(postId, newVoteValue, voteCountText) {
         dataType: 'json',
         success: function (data) {
             ForumPostRefreshVotes(postId, voteCountText);
+            SetIconsAfterVote(postId, data.voteStyle);
             return true;
         },
         error: function (error) {
@@ -70,5 +71,31 @@ async function ForumPostChangeVote(postId, newVoteValue, voteCountText) {
     });
 
     return false;
+}
+
+function SetIconsAfterVote(postId, voteValue) {
+
+    var upvoteButton = document.getElementById("upvoteButton " + postId);
+    var downvoteButton = document.getElementById("downvoteButton " + postId);
+
+    if (voteValue == "upvoteFull") {
+        upvoteButton.style.backgroundImage = "url('Images/upvoteIconFull.png')";
+        upvoteButton.value = "upvoteFull";
+        downvoteButton.style.backgroundImage = "url('Images/downvoteIconEmpty.png')";
+        downvoteButton.value = "downvoteEmpty";
+    }
+    else if (voteValue == "downvoteFull") {
+        upvoteButton.style.backgroundImage = "url('Images/upvoteIconEmpty.png')";
+        upvoteButton.value = "upvoteEmpty";
+        downvoteButton.style.backgroundImage = "url('Images/downvoteIconFull.png')";
+        downvoteButton.value = "downvoteFull";
+    }
+    else { //neutral or no vote cases
+        upvoteButton.style.backgroundImage = "url('Images/upvoteIconEmpty.png')";
+        upvoteButton.value = "upvoteEmpty";
+        downvoteButton.style.backgroundImage = "url('Images/downvoteIconEmpty.png')";
+        downvoteButton.value = "downvoteEmpty";
+    }
+
 }
 
